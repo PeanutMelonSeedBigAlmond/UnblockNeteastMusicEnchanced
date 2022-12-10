@@ -118,7 +118,7 @@ if(config.blockAd){
 }
 
 if(config.blockRecord){
-	server.blacklist.push('.*eapi/pl/count.*')
+	// server.blacklist.push('.*eapi/pl/count.*')
 	server.blacklist.push('.*log(?!in).*')
 }
 
