@@ -38,6 +38,14 @@ const config = require('./cli.js')
 		action: 'store_true',
 		help: 'enable proxy limitation',
 	})
+	.option(['--block-ad'], {
+		action: 'store_true',
+		help: 'block ADs',
+	})
+	.option(['--block-record'], {
+		action: 'store_true',
+		help: 'block record statistics',
+	})
 	.option(['-c', '--cnrelay'], {
 		metavar: 'cnrelay',
 		help: 'Mainland China relay to get music url',
@@ -104,6 +112,15 @@ if (config.strict) server.blacklist.push('.*');
 server.authentication = config.token || null;
 global.endpoint = config.endpoint;
 if (config.endpoint) server.whitelist.push(escape(config.endpoint));
+
+if(config.blockAd){
+	server.blacklist.push(".*api/ad.*")
+}
+
+if(config.blockRecord){
+	server.blacklist.push('.*eapi/pl/count.*')
+	server.blacklist.push('.*log(?!in).*')
+}
 
 // hosts['music.httpdns.c.163.com'] = random(['59.111.181.35', '59.111.181.38'])
 // hosts['httpdns.n.netease.com'] = random(['59.111.179.213', '59.111.179.214'])

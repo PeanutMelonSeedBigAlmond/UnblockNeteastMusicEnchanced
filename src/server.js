@@ -70,16 +70,17 @@ const proxy = {
 	log: (ctx) => {
 		const { req, socket, decision } = ctx;
 		if (socket)
-			if (socket) logger.debug({ decision, url: req.url }, `TUNNEL`);
-			else
-				logger.debug(
-					{
-						decision,
-						host: parse(req.url).host,
-						encrypted: req.socket.encrypted,
-					},
-					`MITM${req.socket.encrypted ? ' (ssl)' : ''}`
-				);
+			logger.debug({ decision, url: req.url }, `TUNNEL`);
+		else
+			logger.debug(
+				{
+					decision,
+					host: parse(req.url).href,
+					encrypted: req.socket.encrypted,
+				},
+				`MITM${req.socket.encrypted ? ' (ssl)' : ''}`
+			);
+			
 	},
 	authenticate: (ctx) => {
 		const { req, res, socket } = ctx;
@@ -106,7 +107,7 @@ const proxy = {
 		}
 	},
 	filter: (ctx) => {
-		if (ctx.decision || ctx.req.local) return;
+		if (ctx.req.local) return;
 		const url = parse((ctx.socket ? 'https://' : '') + ctx.req.url);
 		const match = (pattern) =>
 			url.href.search(new RegExp(pattern, 'g')) !== -1;
@@ -114,7 +115,8 @@ const proxy = {
 			const allow = server.whitelist.some(match);
 			const deny = server.blacklist.some(match);
 			// console.log('allow', allow, 'deny', deny)
-			if (!allow && deny) {
+			if (!allow || deny) {
+				logger.debug(`Request blocked: ${url.href}`)
 				return Promise.reject((ctx.error = 'filter'));
 			}
 		} catch (error) {

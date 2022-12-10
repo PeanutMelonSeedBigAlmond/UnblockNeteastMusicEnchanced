@@ -10,7 +10,7 @@
 		"node": ">= 12"
 	},
 	"scripts": {
-		"start:dev": "cross-env LOG_LEVEL=debug node src/app.js -e https://music.163.com",
+		"start:dev": "cross-env LOG_LEVEL=debug node src/app.js -e https://music.163.com --block-ad --block-record",
 		"start": "cross-env node src/app.js -e https://music.163.com",
 		"build": "webpack",
 		"pkg": "pkg . --out-path=dist/",

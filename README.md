@@ -135,12 +135,13 @@ DEVELOPMENT=true node app.js
 ```bash
 $ unblockneteasemusic -h
 usage: unblockneteasemusic [-v] [-p http[:https]] [-a address] [-u url] [-f host]
-                           [-o source [source ...]] [-t token] [-e url] [-s]
-                           [-h]
+              [-o source [source ...]] [-t token] [-e url] [-s] [--block-ad]
+              [--block-record] [-c cnrelay] [-h]
 
 optional arguments:
   -v, --version                   output the version number
-  -p port, --port http[:https]    specify server port
+  -p http[:https], --port http[:https]
+                                  specify server port
   -a address, --address address   specify server host
   -u url, --proxy-url url         request through upstream proxy
   -f host, --force-host host      force the netease server ip
@@ -149,7 +150,9 @@ optional arguments:
   -t token, --token token         set up proxy authentication
   -e url, --endpoint url          replace virtual endpoint with public host
   -s, --strict                    enable proxy limitation
-  -c, --cnrelay host:port         Mainland China relay to get music url
+  --block-ad                      block ADs
+  --block-record                  block record statistics
+  -c cnrelay, --cnrelay cnrelay   Mainland China relay to get music url
   -h, --help                      output usage information
 ```
 
