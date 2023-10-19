@@ -14,12 +14,12 @@ jobs:
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
               # Setup .npmrc file to publish to npm
             - uses: actions/setup-node@v3
               with:
-                  node-version: '16.x'
+                  node-version: '18.x'
 
             - run: yarn
             - run: yarn npm publish
@@ -35,12 +35,12 @@ jobs:
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
               # Setup .npmrc file to publish to npm
             - uses: actions/setup-node@v3
               with:
-                  node-version: '16.x'
+                  node-version: '18.x'
 
             - run: yarn
             - run: yarn npm publish
