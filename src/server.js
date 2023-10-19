@@ -114,8 +114,9 @@ const proxy = {
 		try {
 			const allow = server.whitelist.some(match);
 			const deny = server.blacklist.some(match);
+			const additionalNeteaseBlock=server.additionalNeteaseBlock.some(match);
 			// console.log('allow', allow, 'deny', deny)
-			if (!allow || deny) {
+			if ((!allow && deny) || additionalNeteaseBlock) {
 				logger.debug(`Request blocked: ${url.href}`)
 				return Promise.reject((ctx.error = 'filter'));
 			}
@@ -240,8 +241,9 @@ const server = {
 		.on('connect', proxy.core.tunnel),
 };
 
-server.whitelist = [];
-server.blacklist = ['://127\\.\\d+\\.\\d+\\.\\d+', '://localhost'];
+server.whitelist = ['://127\\.\\d+\\.\\d+\\.\\d+', '://localhost'];
+server.blacklist = [];
+server.additionalNeteaseBlock = [];
 server.authentication = null;
 
 module.exports = server;

@@ -114,12 +114,12 @@ global.endpoint = config.endpoint;
 if (config.endpoint) server.whitelist.push(escape(config.endpoint));
 
 if(config.blockAd){
-	server.blacklist.push(".*api/ad.*")
+	server.additionalNeteaseBlock.push(".*api/ad.*")
 }
 
 if(config.blockRecord){
-	// server.blacklist.push('.*eapi/pl/count.*')
-	server.blacklist.push('.*log(?!in).*')
+	// server.additionalNeteaseBlock.push('.*eapi/pl/count.*')
+	server.additionalNeteaseBlock.push('.*log(?!in).*')
 }
 
 // hosts['music.httpdns.c.163.com'] = random(['59.111.181.35', '59.111.181.38'])
